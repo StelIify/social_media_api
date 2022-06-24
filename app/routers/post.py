@@ -58,21 +58,21 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: User = Dep
 @router.put('/posts/{id}')
 def update_post(id: int, post: schemas.PostUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     post_query = db.query(models.Post).filter(models.Post.id == id)
-    updated_post = post_query.first()
+    post_to_update = post_query.first()
 
-    if not updated_post:
+    if not post_to_update:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} does not exist")
 
-    if updated_post.author != current_user.id:
+    if post_to_update.author != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                             detail="You are not authorized to perform requested action")
 
     post_query.update(post.dict())  # update with data from the user
 
     db.commit()
-    db.refresh(updated_post)
+    db.refresh(post_to_update)
 
-    return updated_post
+    return post_to_update
 
 
 @router.post('/posts/{id}/comments', response_model=schemas.CommentResponse)
