@@ -1,7 +1,6 @@
 from fastapi import Depends, HTTPException, status
 from jose import JWSError, jwt
 from datetime import datetime, timedelta, timezone
-from environs import Env
 from sqlalchemy.orm import Session
 from app.database import get_db
 import app.models as models

@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from .schemas import UserCreate, Vote
 from app import models
-from fastapi import Response, status
 
 # User Services
 

@@ -7,7 +7,6 @@ from app.oauth2 import get_current_user
 from enum import Enum
 from app import services
 import asyncio
-from time import perf_counter
 
 
 class VoteDirection(Enum):
